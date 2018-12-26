@@ -47,7 +47,9 @@
   <ItemGroup>
     <Compile Include="CheckTime.cs" />
     <Compile Include="ExhaustiveSearch.cs" />
+    <Compile Include="GeneticBase.cs" />
     <Compile Include="IExhaustive.cs" />
+    <Compile Include="IFintness.cs" />
     <Compile Include="ITimeCheck.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
