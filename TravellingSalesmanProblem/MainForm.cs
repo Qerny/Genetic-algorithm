@@ -108,6 +108,50 @@ namespace TravellingSalesmanProblem
         // Find the shortest path
         private void btnFindPath_Click(object sender, EventArgs e)
         {
+            txtBxPathLenGen.Clear();
+            txtBxPathLenExh.Clear();
+            txtBxTimeExh.Clear();
+            txtBxTimeGen.Clear();
+
+            // get matrix
+            int n;
+            int[,] matr = GetMatrix(out n);
+            var travel = new Travel(matr, n);
+
+                var timeGen = new TimeCheck();
+
+                var genetic = new GeneticBase(travel, timeGen);
+                // set params
+                genetic.CountGenerations = Convert.ToInt32(nmrcCountGen.Value);
+                genetic.CountEntitiesInGeneration = Convert.ToInt32(nmrcCountChildren.Value);
+                if (nmrcFreqMut.Enabled)
+                    genetic.MunationPercent = Convert.ToDouble(nmrcFreqMut.Value);
+
+                // found genom
+                int[] genom = genetic.Run();
+
+                if (genom != null)
+                {
+                    // translate genom into path
+                    int[] path = travel.FormPath(genom);
+                    int pathLen = travel.GetPathLen(path);
+                    txtBxPathLenGen.Text = pathLen.ToString();
+                }
+                else
+                {
+                    txtBxPathLenGen.Text = "-";
+                }
+                txtBxTimeGen.Text = timeGen.GetTime().ToString();
+
+                var timeExh = new TimeCheck();
+
+                //var ex = new ExhaustiveSearch<int>(new MinArea.Permutations<int>(), travel, timeExh);
+                // Get the shortest path
+                //int[] exPath = ex.GetOptimal();
+                //int exLen = travel.GetPathLen(exPath);
+                //txtBxPathLenExh.Text = exLen.ToString();
+
+                //txtBxTimeExh.Text = timeExh.GetTime().ToString();
         }
     }
 }
